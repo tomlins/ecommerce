@@ -29,13 +29,13 @@ public class UserController {
 
 	@GetMapping("/id/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
-		LOG.info("User requesting findById, {}", id);
+		LOG.info("findById : User requesting findById, {}", id);
 		return ResponseEntity.of(userRepository.findById(id));
 	}
 	
 	@GetMapping("/{username}")
 	public ResponseEntity<User> findByUserName(@PathVariable String username) {
-		LOG.info("User requesting findByUserName, {}", username);
+		LOG.info("findByUserName : User requesting findByUserName, {}", username);
 		User user = userRepository.findByUsername(username);
 		return user == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(user);
 	}
@@ -46,17 +46,17 @@ public class UserController {
 		LOG.info("createUser requested...");
 
 		// Refactored this method as the original project code put the User creation and Cart creation
-		// BEFORE the password was validated!
-
+		// BEFORE the password was validated. This would leave an orphaned Cart object should
+		// user creation fail
 
 		if(createUserRequest.getPassword().length()>=7) {
 			if(!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
-				LOG.info("Chosen password does not match, {}, {}",
+				LOG.info("createUser : Chosen password does not match, {}, {}",
 						createUserRequest.getPassword(), createUserRequest.getConfirmPassword());
 				return ResponseEntity.badRequest().build();
 			}
 		} else {
-			LOG.info("Chosen password does not meet minimum length, {}", createUserRequest.getPassword());
+			LOG.info("createUser : Chosen password does not meet minimum length, {}", createUserRequest.getPassword());
 			return ResponseEntity.badRequest().build();
 		}
 
@@ -72,7 +72,7 @@ public class UserController {
 		user.setCart(cart);
 		userRepository.save(user);
 
-		LOG.info("User successfully created, {}", user.getUsername());
+		LOG.info("createUser : User {} successfully created", user.getUsername());
 		return ResponseEntity.ok(user);
 	}
 	

@@ -1,9 +1,12 @@
 package net.tomlins.udacity.p4.ecommerce.controllers;
 
-import java.util.Optional;
-import java.util.stream.IntStream;
-
+import net.tomlins.udacity.p4.ecommerce.model.persistence.Cart;
+import net.tomlins.udacity.p4.ecommerce.model.persistence.Item;
+import net.tomlins.udacity.p4.ecommerce.model.persistence.User;
+import net.tomlins.udacity.p4.ecommerce.model.persistence.repositories.CartRepository;
 import net.tomlins.udacity.p4.ecommerce.model.persistence.repositories.ItemRepository;
+import net.tomlins.udacity.p4.ecommerce.model.persistence.repositories.UserRepository;
+import net.tomlins.udacity.p4.ecommerce.model.requests.ModifyCartRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.tomlins.udacity.p4.ecommerce.model.persistence.Cart;
-import net.tomlins.udacity.p4.ecommerce.model.persistence.Item;
-import net.tomlins.udacity.p4.ecommerce.model.persistence.User;
-import net.tomlins.udacity.p4.ecommerce.model.persistence.repositories.CartRepository;
-import net.tomlins.udacity.p4.ecommerce.model.persistence.repositories.UserRepository;
-import net.tomlins.udacity.p4.ecommerce.model.requests.ModifyCartRequest;
+import java.util.Optional;
+import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("/api/cart")
@@ -38,14 +37,15 @@ public class CartController {
 	
 	@PostMapping("/addToCart")
 	public ResponseEntity<Cart> addTocart(@RequestBody ModifyCartRequest request) {
+
 		User user = userRepository.findByUsername(request.getUsername());
 		if(user == null) {
-			LOG.info("addToCart", "User {} not found", request.getUsername());
+			LOG.info("addToCart : User {} not found", request.getUsername());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		Optional<Item> item = itemRepository.findById(request.getItemId());
 		if(!item.isPresent()) {
-			LOG.info("Item id {} not found", request.getItemId());
+			LOG.info("addToCart : Item id {} not found", request.getItemId());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		Cart cart = user.getCart();
@@ -53,7 +53,7 @@ public class CartController {
 			.forEach(i -> cart.addItem(item.get()));
 
 		cartRepository.save(cart);
-		LOG.info("Item id {}, qty {} saved to cart for user {}",
+		LOG.info("addToCart : Item id {}, qty {} saved to {}'s cart",
 				request.getItemId(), request.getQuantity(), request.getUsername());
 
 		return ResponseEntity.ok(cart);
@@ -63,16 +63,22 @@ public class CartController {
 	public ResponseEntity<Cart> removeFromcart(@RequestBody ModifyCartRequest request) {
 		User user = userRepository.findByUsername(request.getUsername());
 		if(user == null) {
+			LOG.info("removeFromcart : User {} not found", request.getUsername());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
+
 		Optional<Item> item = itemRepository.findById(request.getItemId());
 		if(!item.isPresent()) {
+			LOG.info("removeFromcart : Item id {} not found", request.getItemId());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
+
 		Cart cart = user.getCart();
 		IntStream.range(0, request.getQuantity())
 			.forEach(i -> cart.removeItem(item.get()));
 		cartRepository.save(cart);
+		LOG.info("removeFromcart : Item id {} removed from {}'s cart", request.getItemId(), request.getUsername());
+
 		return ResponseEntity.ok(cart);
 	}
 		

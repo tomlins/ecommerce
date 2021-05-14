@@ -79,6 +79,14 @@ public class CartControllerTest {
     }
 
     @Test
+    public void addToCart_fail() {
+        modifyCartRequest.setUsername("unknownUser");
+        ResponseEntity<Cart> response = cartController.addTocart(modifyCartRequest);
+        assertNotNull(response);
+        assertEquals(404, response.getStatusCodeValue());
+    }
+
+    @Test
     public void removeFromCart_success() {
         // Add items to the cart first and assert total is 10
         Cart responseCart = cartController.addTocart(modifyCartRequest).getBody();
@@ -87,6 +95,18 @@ public class CartControllerTest {
         // Now remove the items and assert total is now zero
         responseCart = cartController.removeFromcart(modifyCartRequest).getBody();
         assertEquals(0.0, responseCart.getTotal().doubleValue(), 0);
-
     }
+
+    @Test
+    public void removeFromCart_fail() {
+        // Add items to the cart first and assert total is 10
+        Cart responseCart = cartController.addTocart(modifyCartRequest).getBody();
+        assertEquals(10.0, responseCart.getTotal().doubleValue(), 0);
+
+        // Now remove an unknown item
+        modifyCartRequest.setItemId(999);
+        ResponseEntity<Cart> responseFail = cartController.removeFromcart(modifyCartRequest);
+        assertEquals(404, responseFail.getStatusCodeValue());
+    }
+
 }
