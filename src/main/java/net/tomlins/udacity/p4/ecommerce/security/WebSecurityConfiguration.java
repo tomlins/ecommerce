@@ -24,8 +24,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        // added to allow access to h2-console
+        http.headers().frameOptions().disable();
+
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
+
+                // added to allow access to h2-console
+                .antMatchers("/h2-console/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))

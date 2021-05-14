@@ -4,6 +4,8 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 import net.tomlins.udacity.p4.ecommerce.model.persistence.repositories.ItemRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,8 @@ import net.tomlins.udacity.p4.ecommerce.model.requests.ModifyCartRequest;
 @RestController
 @RequestMapping("/api/cart")
 public class CartController {
+
+	private static final Logger LOG = LoggerFactory.getLogger(CartController.class);
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -36,16 +40,22 @@ public class CartController {
 	public ResponseEntity<Cart> addTocart(@RequestBody ModifyCartRequest request) {
 		User user = userRepository.findByUsername(request.getUsername());
 		if(user == null) {
+			LOG.info("addToCart", "User {} not found", request.getUsername());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		Optional<Item> item = itemRepository.findById(request.getItemId());
 		if(!item.isPresent()) {
+			LOG.info("Item id {} not found", request.getItemId());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		Cart cart = user.getCart();
 		IntStream.range(0, request.getQuantity())
 			.forEach(i -> cart.addItem(item.get()));
+
 		cartRepository.save(cart);
+		LOG.info("Item id {}, qty {} saved to cart for user {}",
+				request.getItemId(), request.getQuantity(), request.getUsername());
+
 		return ResponseEntity.ok(cart);
 	}
 	
