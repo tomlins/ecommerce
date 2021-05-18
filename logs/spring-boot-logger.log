@@ -288,3 +288,31 @@ insert into user (id, cart_id, password, username) values (null, ?, ?, ?) [23505
 2021-05-18 20:00:54,379 INFO net.tomlins.udacity.p4.ecommerce.controllers.ItemController [http-nio-8080-exec-2] getItemById : User requesting item Id, 1
 2021-05-18 20:01:00,488 INFO net.tomlins.udacity.p4.ecommerce.controllers.ItemController [http-nio-8080-exec-1] getItemById : User requesting item Id, 5
 2021-05-18 20:01:07,673 INFO net.tomlins.udacity.p4.ecommerce.controllers.ItemController [http-nio-8080-exec-3] getItemById : User requesting item Id, 9
+2021-05-18 20:50:29,239 INFO net.tomlins.udacity.p4.ecommerce.controllers.UserController [http-nio-8080-exec-5] createUser requested...
+2021-05-18 20:50:29,386 INFO net.tomlins.udacity.p4.ecommerce.controllers.UserController [http-nio-8080-exec-5] createUser : User davidbowie successfully created
+2021-05-18 21:09:39,228 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-18 21:09:39,235 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-05-18 21:09:39,249 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-05-18 21:09:39,258 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
+2021-05-18 21:15:51,130 INFO org.springframework.boot.StartupInfoLogger [main] Starting SareetaApplicationTests on Jasons-Mac-mini.local with PID 63590 (started by jasontomlins in /Users/jasontomlins/git/Udacity/ecommerce)
+2021-05-18 21:15:51,132 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.3.2.RELEASE, Spring v5.2.8.RELEASE
+2021-05-18 21:15:51,133 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-18 21:15:51,915 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-05-18 21:15:51,998 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 73ms. Found 4 JPA repository interfaces.
+2021-05-18 21:15:53,215 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-18 21:15:53,263 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.4.18.Final
+2021-05-18 21:15:53,298 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-05-18 21:15:53,394 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2021-05-18 21:15:53,570 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2021-05-18 21:15:53,587 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-05-18 21:15:54,406 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-18 21:15:54,418 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-05-18 21:15:55,326 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-05-18 21:15:56,078 INFO org.springframework.security.web.DefaultSecurityFilterChain [main] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5e1bfe66, org.springframework.security.web.context.SecurityContextPersistenceFilter@43aa767, org.springframework.security.web.header.HeaderWriterFilter@2ad80cf6, org.springframework.web.filter.CorsFilter@6c399d4, org.springframework.security.web.authentication.logout.LogoutFilter@7ec68821, net.tomlins.udacity.p4.ecommerce.security.JWTAuthenticationFilter@726dd367, net.tomlins.udacity.p4.ecommerce.security.JWTAuthenticationVerficationFilter@433362e0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7ead0b51, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@15254569, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@425a5c2e, org.springframework.security.web.session.SessionManagementFilter@6067e7c1, org.springframework.security.web.access.ExceptionTranslationFilter@447a557b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@58267ba1]
+2021-05-18 21:15:56,289 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-18 21:15:56,511 INFO org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:bootapp'
+2021-05-18 21:15:56,590 INFO org.springframework.boot.StartupInfoLogger [main] Started SareetaApplicationTests in 6.203 seconds (JVM running for 9.364)
+2021-05-18 21:15:56,653 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-18 21:15:56,656 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-05-18 21:15:56,664 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-05-18 21:15:56,675 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
