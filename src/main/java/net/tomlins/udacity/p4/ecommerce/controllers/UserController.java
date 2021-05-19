@@ -45,6 +45,13 @@ public class UserController {
 
 		LOG.info("createUser requested...");
 
+		// Check if user exists first...
+		User userExist = userRepository.findByUsername(createUserRequest.getUsername());
+		if (userExist!=null) {
+			LOG.info("createUser : Chosen username {} already exists!", createUserRequest.getPassword());
+			return ResponseEntity.badRequest().build();
+		}
+
 		// Refactored this method as the original project code put the User creation and Cart creation
 		// BEFORE the password was validated. This would leave an orphaned Cart object should
 		// user creation fail
